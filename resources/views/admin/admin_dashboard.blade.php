@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-</head>
-<body>
-    <h1>Wellcome to admin dashboard</h1>
-</body>
-</html>
+<x-admin.layouts.admin_master>
+    <!-- <x-admin.body.sidebar/>
+    
+    <x-admin.body.footer/> -->
+</x-admin.layouts.admin_master>
