@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+namespace App\Http\Controllers;
+
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +20,8 @@ use App\Http\Controllers\VendorController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::resource('brands', BrandController::class);
+
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.Dashboard');
 });
