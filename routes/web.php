@@ -24,13 +24,12 @@ Route::resource('brands', BrandController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.Dashboard');
-});
-Route::middleware('auth')->group(function () {
     Route::get('/admin/logout', [AdminController::class, 'adminDestroy'])->name('admin.logout');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/vendor/dashboard', [VendorController::class, 'vendorDashboard'])->name('user');
 });
+Route::get('/admin/login', [AdminController::class, 'AdminLogin']);
 // Route::middleware(['auth', 'role.admin'])->group(function(){
 // });
 
