@@ -40,6 +40,12 @@
 							<i class="align-middle" data-feather="book"></i> <span class="align-middle">Brands</span>
 						</a>
 					</li>
+					
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{{ route('sliders.index') }}">
+							<i class="align-middle" data-feather="book"></i> <span class="align-middle">Sliders</span>
+						</a>
+					</li>
 
 					<li class="sidebar-header">
 						Tools & Components
