@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Brand;
+use App\Models\User;
+use Image;
+use Carbon\carbon;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -20,7 +27,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $activeVendor = User::where('status', 'active')->where('role', 'vendor')->latest()->get();
+        $brands = Brand::latest()->get();
+        $categories = Category::latest()->get();
+        return view('admin.products.create', compact('brands', 'categories', 'activeVendor'));
     }
 
     /**
@@ -28,7 +38,36 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image = $request -> file('product_image');
+        $fileName = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(1076,507)->save('upload/product/'.$fileName);
+        $save_url = 'upload/product/'.$fileName;
+        Product::create([
+            'brand_id' => $request -> brand_id,
+            'category_id' => $request -> category_id,
+            'product_name' => $request -> product_name,
+            'product_slug' => strtolower(str_replace('','_',$request -> product_name)),
+            'product_code' => $request -> product_code,
+            'product_qty' => $request -> product_qty,
+            'product_tags' => $request -> product_tags,
+            'product_size' => $request -> product_size,
+            'product_color' => $request -> product_color,
+            'selling_price' => $request -> selling_price,
+            'discount_price' => $request -> discount_price,
+            'short_desc' => $request -> short_desc,
+            'long_desc' => $request -> long_desc,
+            'vendor_id' => $request -> vendor_id,
+            'hot_deals' => $request -> hot_deals,
+            'featured' => $request -> featured,
+            'special_offer' => $request -> special_offer,
+            'special_deals' => $request -> special_deals,
+
+            'status' => 1,
+
+            'product_image' => $save_url,
+            'created_at' => Carbon::now(),
+        ]);
+        return redirect()->route('categories.index');
     }
 
     /**
