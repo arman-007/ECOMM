@@ -13,6 +13,8 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 
+use App\Http\Middleware\RedirectIfAuthenticated;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/vendor/dashboard', [VendorController::class, 'vendorDashboard'])->name('user');
 });
 
-Route::get('/admin/login', [AdminController::class, 'AdminLogin']);
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware(RedirectIfAuthenticated::class);
+
+Route::get('/vendor/login', [AdminController::class, 'VendorLogin'])->middleware(RedirectIfAuthenticated::class);
 // Route::middleware(['auth', 'role.admin'])->group(function(){
 // });
 
